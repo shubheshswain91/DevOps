@@ -1,0 +1,106 @@
+
+ On Application Server 2 create a container named debug_2 using image ubuntu/apache2:latest
+
+docker pull ubuntu/apache2:latest
+docker run -d --name debug_2 ubuntu/apache2:latest sleep 1000
+
+##################################################################
+
+On App Server 2 in Stratos Datacenter copy an encrypted file /tmp/test.txt.gpg from development_3 docker container to the docker host in /tmp
+
+docker cp development_3:/tmp/test.txt.gpg /tmp/
+
+###############################################################
+
+
+
+List Docker Images and Filter by Size:
+docker images --format '{{.Repository}}:{{.Tag}}\t{{.Size}}' | awk '$2 > 100000000 { print }'
+
+or simple docker images -a 
+To delete the Image use: 
+
+docker rmi <image name>
+
+###########################################################
+
+Delete a docker network named php-network from App Server 2 in Stratos Datacenter.
+
+docker network ls
+
+
+docker network rm php-network
+
+
+#########################################################
+
+Create a new network named mysql-network using the bridge driver. Allocate subnet 182.18.0.1/24, configure Gateway 182.18.0.1.
+
+docker network create \
+    --driver=bridge \
+    --subnet=182.18.0.0/24 \
+    --gateway=182.18.0.1 \
+    mysql-network
+
+
+Verify Network Creation:
+docker network inspect mysql-network
+
+#########################################################
+
+
+On App Server 3 in Stratos Datacenter copy an encrypted file /tmp/nautilus.txt.gpg from docker host to ubuntu_latest container (running on same server) in /usr/src/ location (create this location if doesn't exit). Please do not try to modify this file in any way
+
+docker exec -it ubuntu_latest mkdir -p /usr/src/
+
+Copy Encrypted File to Container
+docker cp /tmp/nautilus.txt.gpg ubuntu_latest:/usr/src/
+
+Verify File Copy
+docker exec -it ubuntu_latest ls /usr/src/nautilus.txt.gpg
+
+
+#######################################################
+
+There is a docker image named nginx:mainline-alpine-slim on App Server 3 in Stratos Datacenter, save this image as nginx.tar archive under /home directory on the same server.
+
+sudo docker save -o /home/nginx.tar nginx:mainline-alpine-slim
+
+
+ls /home/nginx.tar
+
+######################################################
+
+There is a static website running within a container named nautilus, this container is running on App Server 3. Suddenly, we started facing some issues with the static website on App Server 3. Look into the issue to fix the same, you can find more details below:
+
+
+a. Container's volume /usr/local/apache2/htdocs is mapped with the host volume /var/www/html.
+
+b. The website should run on host port 8080 on App Server 3 i.e command curl http://localhost:8080/ should work on App Server 3.
+
+mkdir -p /var/www/html
+
+docker run -d \
+    --name my-apache-container \
+    -v /var/www/html:/usr/local/apache2/htdocs \
+    -p 8080:80 \
+    httpd:alpine
+
+curl http://localhost:8080/
+
+##############################################
+
+On Application Server 3 create a container named nginx_3 using image nginx with alpine tag and make sure container is in running state.
+
+docker pull nginx:alpine
+docker run -d --name nginx_3 -p 80:80 nginx:alpine
+
+docker ps -f "name=nginx_3"
+curl http://localhost/
+
+
+
+
+
+
+
