@@ -1,0 +1,50 @@
+Last week the Nautilus DevOps team met with the application
+ development team and decided to containerize several of 
+ their applications. The DevOps team wants to do some 
+ testing per the following:
+
+
+Install docker-ce and docker-compose packages on App Server 3
+
+Start docker service.
+
+
+# First ssh to the server 
+
+Download the docker-ce 
+curl -L "https://github.com/docker/compose/releases/download/1.28.6/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+
+Check downloaded or not
+ls /usr/local/bin/docker-compose
+ls -l  /usr/local/bin/docker-compose
+
+Set permissons
+chmod +x /usr/local/bin/docker-compose
+ls -l  /usr/local/bin/docker-compose
+
+Validate by running version
+docker-compose --version
+
+install docker-ce  need to configure repo from below link
+yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+
+Since yum-config-manager is not already present
+yum install yum-utils
+
+yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+
+ Install docker 
+yum install docker-ce docker-ce-cli containerd.io
+
+Verify  docker installed successfully 
+rpm -qa |grep docker
+
+ Enable & start the docker service
+systemctl enable docker
+systemctl start  docker
+systemctl status  docker
+
+Verify the docker 
+docker --version
+docker ps
+docker-compose --version
