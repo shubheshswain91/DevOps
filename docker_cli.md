@@ -58,3 +58,48 @@ docker docker ps --filter name=web_server
 ```shell
 docker docker rm  $(docker ps -aq)
 ```
+
+## Remove image
+
+```shell
+docker image rm < image name >
+```
+
+## See the logs
+
+```shell
+docker logs < container name >
+```
+
+
+## Follow the logs of the live container
+
+```shell
+docker logs -f < container name >
+```
+
+
+## To go inside of the conatiner
+
+```shell
+docker exec -it web_server /bin/bash
+```
+
+## Create simple docker file and run it: example
+
+```shell
+vim Dockerfile
+```
+add the below:
+
+```
+FROM ubuntu:latest
+CMD ["echo", "Hello from my first Docker image!"]
+```
+save and exit
+
+Build it:
+
+```shell
+docker build .
+```
