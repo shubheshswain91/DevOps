@@ -103,3 +103,11 @@ Build it:
 ```shell
 docker build .
 ```
+
+## Help command
+
+```shell
+docker --help
+
+docker run --help
+```
