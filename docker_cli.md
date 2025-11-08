@@ -111,3 +111,37 @@ docker --help
 
 docker run --help
 ```
+
+### To stop all the containers
+```shell
+docker stop $(docker ps -q)
+```
+
+
+### To remove all the containers
+```shell
+docker rm $(docker ps -aq)
+```
+
+### To remove all the images
+```shell
+docker rmi $(docker ps -q)
+```
+
+![Image 01](assets/01.png)
+
+If you get the below error:
+```shell
+Error response from daemon: conflict: unable to delete 7b93084ef99a (must be forced) - image is referenced in multiple repositories
+```
+
+If there are some repository mentioned in the image, then first remove by untagging and then remove the image(like the below example)
+```shell
+docker rmi ssw/simple_hello_world:0.0.1
+```
+
+then remove the image
+```shell
+ docker rmi 7b93084ef99a
+``` 
+ 
