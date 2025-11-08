@@ -13,3 +13,11 @@ In this project, your goal is to containerize a basic back-end API built with No
 5. **Test Your API**: Hit your endpoints to ensure everything is working smoothly.
 
 Give these steps a try on your own before checking the solution recordings! 🚀
+
+![Image 01](assets/04.png)
+
+![Image 02](assets/01.png)
+
+![Image 03](assets/02.png)
+
+![Image 04](assets/03.png)

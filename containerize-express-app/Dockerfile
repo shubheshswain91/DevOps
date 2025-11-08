@@ -4,7 +4,8 @@ WORKDIR /app
 
 COPY package*.json .
 
-RUN npm ci
+# Install dependencies(clean install)
+RUN npm ci 
 
 COPY src/index.js index.js
 
